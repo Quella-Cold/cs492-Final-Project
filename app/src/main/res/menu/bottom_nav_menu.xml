@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/bottom_home"
+        android:title="HOME"/>
+
+    <item
+        android:id="@+id/bottom_nav_list"
+        android:icon="@drawable/bottom_list"
+        android:title="PLACES"/>
+
+    <item
+        android:id="@+id/bottom_nav_fav"
+        android:icon="@drawable/bottom_fav"
+        android:title="FAVORITES"/>
+
+</menu>
