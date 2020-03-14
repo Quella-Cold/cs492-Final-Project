@@ -21,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String apiKey = getString(R.string.places_api_key);
-        Log.d("apiKey", apiKey);
-
         setContentView(R.layout.activity_main);
 
         mBottomNav = findViewById(R.id.bottom_navigation_view);
