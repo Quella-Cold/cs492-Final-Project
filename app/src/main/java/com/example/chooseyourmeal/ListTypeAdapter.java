@@ -74,8 +74,8 @@ public class ListTypeAdapter extends RecyclerView.Adapter<ListTypeAdapter.ListTy
 
         @Override
         public void onClick(View v) {
-            String type = mListTypes.get(getAdapterPosition()).Type;
-            Log.d("Type", type);
+            ListTypeItem listType = mListTypes.get(getAdapterPosition());
+            onListTypeItemClickListener.onListTypeItemClick(listType);
         }
     }
 

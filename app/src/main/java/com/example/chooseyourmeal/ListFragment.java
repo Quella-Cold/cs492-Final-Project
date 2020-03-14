@@ -1,6 +1,7 @@
 package com.example.chooseyourmeal;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class ListFragment extends Fragment implements ListTypeAdapter.OnListType
 
     @Override
     public void onListTypeItemClick(ListTypeItem listType) {
-
+        String type = listType.Type;
+        Log.d("type", type);
     }
 }
