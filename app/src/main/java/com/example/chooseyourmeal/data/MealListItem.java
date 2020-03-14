@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MealListItem implements Serializable{
-    public Bitmap image;
+    public String image;
     public String mealName;
-    public String dist;
+    public String address;
+    public Float lat;
+    public Float lng;
 }
