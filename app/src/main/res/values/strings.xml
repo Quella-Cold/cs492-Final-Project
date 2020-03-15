@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Choose Your Meal</string>
+    <string name="ErrMsg">Choose Your Meal</string>
+
 </resources>
