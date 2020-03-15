@@ -6,9 +6,9 @@
         android:title="HOME"/>
 
     <item
-        android:id="@+id/bottom_nav_list"
+        android:id="@+id/bottom_nav_random"
         android:icon="@drawable/bottom_list"
-        android:title="PLACES"/>
+        android:title="RANDOM"/>
 
     <item
         android:id="@+id/bottom_nav_fav"
