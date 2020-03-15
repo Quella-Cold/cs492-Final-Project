@@ -12,6 +12,8 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.Date;
 import java.util.List;
 import com.example.chooseyourmeal.utils.BuildPlaceApiRequestUrl;
+import com.example.chooseyourmeal.data.SaveMealDao;
+
 public class MealRepository implements LoadMealListTask.AsyncCallback {
     private static final String TAG = MealRepository.class.getSimpleName();
 
@@ -21,6 +23,8 @@ public class MealRepository implements LoadMealListTask.AsyncCallback {
     private Float mCurrentlng;
     private String mRestaurantType;
     private String mCurrentURL;
+
+    private SaveMealDao mDao;
 
     public MealRepository (Application App) {
         mMealItems = new MutableLiveData<>();
@@ -94,5 +98,11 @@ public class MealRepository implements LoadMealListTask.AsyncCallback {
         }
     }
 
+    public LiveData<List<MealListItem>> getAllFavMeals() {
+        return mDao.getAllItems();
+    }
+    public LiveData<MealListItem> getFavByName(String address){
+        return mDao.getLocationByName(address);
+    }
 
 }
