@@ -54,18 +54,22 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealLi
 
     class MealListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextview;
+        private TextView mTextviewaddr;
         private ImageView mImageView;
 
         public MealListViewHolder(View itemView) {
             super(itemView);
-            mTextview=itemView.findViewById(R.id.cv_textview);
+            mTextview=itemView.findViewById(R.id.cv_textview_name);
+            mTextviewaddr=itemView.findViewById(R.id.cv_textview_address);
             mImageView=itemView.findViewById(R.id.cv_imageview);
             itemView.setOnClickListener(this);
         }
 
         public void bind(MealListItem mealListItem) {
-             mTextview.setText(mealListItem.mealName+"/n"+mealListItem.address);
-             String iconURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="+mealListItem.image;
+             mTextview.setText(mealListItem.mealName);
+             mTextviewaddr.setText(mealListItem.address);
+
+             String iconURL="https://maps.googleapis.com/maps/api/streetview?size=1280x720&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&location="+mealListItem.lat.toString()+","+mealListItem.lng.toString();
              Glide.with(mImageView.getContext()).load(iconURL).into(mImageView);
         }
 
