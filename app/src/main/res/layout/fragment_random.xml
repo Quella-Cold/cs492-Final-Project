@@ -7,87 +7,59 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="56dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/border">
 
-        <ImageView
-            android:id="@+id/iv_random"
-            android:layout_width="290dp"
-            android:layout_height="380dp"
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Click the bottom to pick a random restaurant"
+            android:textAlignment="center"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:scaleType="fitXY" />
-
-
-        <TextView
-            android:id="@+id/tv_random_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:text="Name:"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/tv_random_hour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:text="Opening Hour:"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/tv_random_dis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:text="Distance:"
-            android:textSize="18dp" />
-
+            android:textSize="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/bt_random_direction"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="140dp"
-                    android:layout_height="60dp"
-                    android:drawableLeft="@drawable/home_direction"
-                    android:text="Direction"
-                    />
-
-                <Button
-                    android:id="@+id/bt_random_new"
-                    android:layout_marginLeft="40dp"
-                    android:layout_width="140dp"
-                    android:layout_height="60dp"
-                    android:drawableLeft="@drawable/home_res"
-                    android:text="Random" />
-
-            </LinearLayout>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:src="@drawable/home_fav" />
+                android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:text="In"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="4dp"/>
 
+            <Spinner
+                android:id="@+id/sp_random"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:entries="@array/radius_arrays"
+                android:prompt="@string/radius_prompt"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:text="meters"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_random_new"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:drawableLeft="@drawable/home_res"
+            android:layout_gravity="center"
+            android:text="Random" />
 
     </LinearLayout>
 

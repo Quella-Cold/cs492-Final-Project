@@ -9,6 +9,8 @@ public class MealListItemsBundle implements Serializable {
         public String icon;
         public Photo photos[];
         public Geo geometry;
+        public Hour opening_hours;
+        public float rating;
     }
     public class Geo{
         public Loc location;
@@ -19,5 +21,8 @@ public class MealListItemsBundle implements Serializable {
     }
     public class Photo {
         public String photo_reference;
+    }
+    public class Hour {
+        public String open_now;
     }
 }

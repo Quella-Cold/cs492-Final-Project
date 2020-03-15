@@ -50,6 +50,8 @@ class LoadMealListTask extends AsyncTask<Void, Void, String> {
                     mealItem.lat=ritem.geometry.location.lat;
                     mealItem.lng=ritem.geometry.location.lng;
                     mealItem.address=ritem.formatted_address;
+                    mealItem.open = ritem.opening_hours.open_now;
+                    mealItem.rating = ritem.rating;
                     Log.d("meamItem",mealItem.address);
                     MealItems.add(mealItem);
                 }

@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Choose Your Meal</string>
-    <string name="ErrMsg">Choose Your Meal</string>
+    <string name="ErrMsg">Please check your connection!</string>
 
+    <string name="radius_prompt">Choose a radius</string>
+
+    <string-array name="radius_arrays">
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </string-array>
 </resources>

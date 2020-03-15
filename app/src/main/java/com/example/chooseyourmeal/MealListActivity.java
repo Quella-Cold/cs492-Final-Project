@@ -25,7 +25,7 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
     private MealListAdapter mMealListAdapter;
     private  MealListViewModel mMealListViewMoedel;
     private TextView mLoadingErrorMessageTV;
-   private LoadMealArgs mealArgs;
+    private LoadMealArgs mealArgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,9 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
 
     @Override
     public void onMealItemClick(MealListItem MealListItem) {
-
+        Intent intent = new Intent(this, MealDetailActivity.class);
+        intent.putExtra("Information", MealListItem);
+        startActivity(intent);
     }
 
     public void loadMeals(LoadMealArgs margs){
