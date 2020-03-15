@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.chooseyourmeal.data.MealListItem;
 import com.example.chooseyourmeal.data.MealRepository;
-
+import com.example.chooseyourmeal.data.Status;
 import java.util.List;
 
 public class MealListViewModel extends AndroidViewModel {
@@ -18,32 +18,19 @@ public class MealListViewModel extends AndroidViewModel {
 
     public MealListViewModel(Application application) {
         super(application);
-        mRepository = new ForecastRepository(application);
-        mForecastItems = mRepository.getForecast();
+        mRepository = new MealRepository(application);
+        mMealListItems = mRepository.getMeal();
         mLoadingStatus = mRepository.getLoadingStatus();
     }
-    public void insertSavedLocation(LocationItem lc) {
-        mRepository.insertSavedLocation(lc);
+
+
+    public void loadMeal(String restaurantType,Float lat,Float lng,Integer Re) {
+        mRepository.loadMeal(restaurantType,lat,lng,Re);
     }
 
-    public void deleteSavedLocation(LocationItem lc) {
-        mRepository.deleteSavedLocation(lc);
-    }
 
-    public LiveData<List<LocationItem>> getAllLocations() {
-        return mRepository.getAllLocations();
-    }
-
-    public LiveData<LocationItem> getLocationByName(String fullName) {
-        return mRepository.getLocationByName(fullName);
-    }
-
-    public void loadForecast(String location, String units) {
-        mRepository.loadForecast(location, units);
-    }
-
-    public LiveData<List<ForecastItem>> getForecast() {
-        return mForecastItems;
+    public LiveData<List<MealListItem>> getMeal() {
+        return mMealListItems;
     }
 
     public LiveData<Status> getLoadingStatus() {

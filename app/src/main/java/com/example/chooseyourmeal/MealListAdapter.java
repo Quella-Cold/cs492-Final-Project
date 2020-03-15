@@ -19,14 +19,14 @@ import android.widget.TextView;
 import com.example.chooseyourmeal.data.MealListItem;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
+import java.util.List;
 public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealListViewHolder> {
-    private ArrayList<MealListItem> mMealListItem;
+    private List<MealListItem> mMealListItem;
     private OnMealItemClickListener mMealItemClickListener;
     public interface OnMealItemClickListener {
         void onMealItemClick(MealListItem MealListItem);
     }
-    public void updateMealListItems(ArrayList<MealListItem> MealListItems) {
+    public void updateMealListItems(List<MealListItem> MealListItems) {
         mMealListItem = MealListItems;
         //this.UnitAbbr=UnitAbbr;
         notifyDataSetChanged();

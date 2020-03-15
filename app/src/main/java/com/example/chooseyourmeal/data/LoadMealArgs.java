@@ -1,5 +1,10 @@
 package com.example.chooseyourmeal.data;
 
-public class LoadMealArgs {
-    public String 
+import java.io.Serializable;
+
+public class LoadMealArgs implements Serializable {
+    public String type;
+    public Float lat;
+    public Float lng;
+    public Integer radius;
 }
