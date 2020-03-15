@@ -37,7 +37,7 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealLi
     public MealListViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView=inflater.inflate(R.layout.cardview_adapter, parent, false);
-        return null;
+        return new MealListViewHolder(itemView);
     }
     @Override
     public int getItemCount() {
@@ -54,7 +54,6 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealLi
 
     class MealListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextview;
-        private TextView mForecastTempDescriptionTV;
         private ImageView mImageView;
 
         public MealListViewHolder(View itemView) {
