@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.example.chooseyourmeal.data.MealListItem;
 
 import java.text.DateFormat;
@@ -53,23 +53,27 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealLi
     }
 
     class MealListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView mForecastDateTV;
+        private TextView mTextview;
         private TextView mForecastTempDescriptionTV;
-        private ImageView mWeatherIconIV;
+        private ImageView mImageView;
 
         public MealListViewHolder(View itemView) {
             super(itemView);
+            mTextview=itemView.findViewById(R.id.cv_textview);
+            mImageView=itemView.findViewById(R.id.cv_imageview);
             itemView.setOnClickListener(this);
         }
 
         public void bind(MealListItem mealListItem) {
-
-
+             mTextview.setText(mealListItem.mealName+"/n"+mealListItem.address);
+             String iconURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="+mealListItem.image;
+             Glide.with(mImageView.getContext()).load(iconURL).into(mImageView);
         }
 
         @Override
         public void onClick(View v) {
-
+             MealListItem mitem=mMealListItem.get(getAdapterPosition());
+             mMealItemClickListener.onMealItemClick(mitem);
         }
     }
 }

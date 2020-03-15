@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chooseyourmeal.data.LoadMealArgs;
 import com.example.chooseyourmeal.data.MealListItem;
 import com.example.chooseyourmeal.data.Status;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
     private MealListAdapter mMealListAdapter;
     private  MealListViewModel mMealListViewMoedel;
     private TextView mLoadingErrorMessageTV;
-
+   private LoadMealArgs mealArgs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,11 +62,12 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
         });
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("Information")) {
-            mForecastItem = (ForecastItem)intent.getSerializableExtra(
+            mealArgs = (LoadMealArgs)intent.getSerializableExtra(
                     "Information"
             );
+            loadMeals(mealArgs);
         }
-        loadMeals();
+
     }
 
     @Override
@@ -73,5 +75,7 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
 
     }
 
-    public void loadMeals()
+    public void loadMeals(LoadMealArgs margs){
+        mMealListViewMoedel.loadMeal(margs.type,margs.lat,margs.lng,margs.radius);
+    }
 }
