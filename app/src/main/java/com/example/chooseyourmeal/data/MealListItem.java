@@ -10,4 +10,6 @@ public class MealListItem implements Serializable{
     public String address;
     public Float lat;
     public Float lng;
+    public String open;
+    public Float rating;
 }

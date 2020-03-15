@@ -72,7 +72,9 @@ public class MealListActivity extends AppCompatActivity implements MealListAdapt
 
     @Override
     public void onMealItemClick(MealListItem MealListItem) {
-
+        Intent intent = new Intent(this, MealDetailActivity.class);
+        intent.putExtra("Information", MealListItem);
+        startActivity(intent);
     }
 
     public void loadMeals(LoadMealArgs margs){

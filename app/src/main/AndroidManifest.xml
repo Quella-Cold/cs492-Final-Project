@@ -31,5 +31,10 @@
             android:name="com.example.chooseyourmeal.RandomActivity"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity
+            android:name="com.example.chooseyourmeal.MealDetailActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
     </application>
 </manifest>

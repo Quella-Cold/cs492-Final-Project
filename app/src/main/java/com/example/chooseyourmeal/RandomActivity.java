@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.chooseyourmeal.data.LoadMealArgs;
+import com.example.chooseyourmeal.data.MealListItem;
 import com.example.chooseyourmeal.data.MealListItemsBundle;
 import com.example.chooseyourmeal.utils.BuildPlaceApiRequestUrl;
 import com.example.chooseyourmeal.utils.MapUtil;
@@ -36,6 +37,7 @@ public class RandomActivity extends AppCompatActivity {
     private TextView mNameTV;
     private TextView mOpenTV;
     private TextView mRatingTV;
+    private TextView mAddressTV;
     private Button mNavBT;
     private Button mFavBT;
     private ProgressBar mLoadingIndicatorPB;
@@ -53,6 +55,7 @@ public class RandomActivity extends AppCompatActivity {
         mNameTV = findViewById(R.id.tv_random_name);
         mOpenTV = findViewById(R.id.tv_random_hour);
         mRatingTV = findViewById(R.id.tv_random_rate);
+        mAddressTV = findViewById(R.id.tv_random_add);
         mNavBT = findViewById(R.id.bt_random_direction);
         mFavBT = findViewById(R.id.bt_random_fav);
         mLoadingIndicatorPB = findViewById(R.id.pd_loading_indicator);
@@ -78,6 +81,7 @@ public class RandomActivity extends AppCompatActivity {
         mFavBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addToFav();
             }
         });
     }
@@ -130,6 +134,7 @@ public class RandomActivity extends AppCompatActivity {
                 }
                 String rate = String.valueOf(resultList.rating);
                 mRatingTV.setText(rate);
+                mAddressTV.setText(resultList.formatted_address);
                 String url=
                         "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="
                                 + resultList.photos[0].photo_reference;
@@ -151,5 +156,18 @@ public class RandomActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    private void addToFav(){
+        MealListItem item = new MealListItem();
+        item.image = mResult.photos[0].photo_reference;
+        item.mealName = mResult.name;
+        item.rating = mResult.rating;
+        item.address = mResult.formatted_address;
+        item.open = mResult.opening_hours.open_now;
+        item.lat = mResult.geometry.location.lat;
+        item.lng = mResult.geometry.location.lng;
+
+        //add item to database
     }
 }
