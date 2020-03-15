@@ -8,16 +8,16 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
 @Dao
-public interface SaveWeatherDao {
+public interface SaveMealDao {
     @Insert
-    void insert(LocationItem weather);
+    void insert(MealListItem item);
 
     @Delete
-    void delete(LocationItem weather);
+    void delete(MealListItem item);
 
-    @Query("SELECT * FROM LocationItems")
-    //LiveData<List<LocationItem>> getAllItems();
+    @Query("SELECT * FROM MealItems")
+    LiveData<List<MealListItem>> getAllItems();
 
-    @Query("SELECT * FROM LocationItems WHERE locationName=:locationName LIMIT 1")
-  //  LiveData<LocationItem> getLocationByName(String locationName);
+    @Query("SELECT * FROM MealItems WHERE address=:address LIMIT 1")
+    LiveData<MealListItem> getLocationByName(String address);
 }
