@@ -1,5 +1,7 @@
 package com.example.chooseyourmeal.data;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +36,21 @@ class LoadMealListTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        ArrayList<MealListItem> MealItems = null;
+        ArrayList<MealListItem> MealItems = new ArrayList<MealListItem>() ;
+        //Log.d("Onpot",s);
         if (s != null) {
             Gson gson= new Gson();
             MealListItemsBundle res=gson.fromJson(s,MealListItemsBundle.class);
+            Log.d("res=",res.results[0].formatted_address);
             if(res!=null && res.results!=null){
-                for(MealListItemsBundle.ResultList ritem:res.results){
+                for(MealListItemsBundle.ResultList ritem : res.results){
                     MealListItem mealItem = new MealListItem();
                     mealItem.mealName=ritem.name;
                     mealItem.image=ritem.photos[0].photo_reference;
                     mealItem.lat=ritem.geometry.location.lat;
                     mealItem.lng=ritem.geometry.location.lng;
                     mealItem.address=ritem.formatted_address;
+                    Log.d("meamItem",mealItem.address);
                     MealItems.add(mealItem);
                 }
             }

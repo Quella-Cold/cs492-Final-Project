@@ -1,5 +1,6 @@
 package com.example.chooseyourmeal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chooseyourmeal.data.CurrentLocation;
 import com.example.chooseyourmeal.data.ListTypeItem;
-
+import com.example.chooseyourmeal.data.LoadMealArgs;
+import com.example.chooseyourmeal.MealListActivity;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements ListTypeAdapter.OnListTypeItemClickListener{
@@ -58,6 +60,14 @@ public class HomeFragment extends Fragment implements ListTypeAdapter.OnListType
     public void onListTypeItemClick(ListTypeItem listType) {
         String type = listType.Type;
         updateLocation();
+        LoadMealArgs args=new LoadMealArgs();
+        args.lat=Float.parseFloat(mCurrentLocation.lat);
+        args.lng=Float.parseFloat(mCurrentLocation.lon);
+        args.radius=500;
+        args.type=type;
+        Intent intent = new Intent(getContext(), MealListActivity.class);
+        intent.putExtra("Information", args);
+        startActivity(intent);
         Log.d("type", type);
         Log.d("type", mCurrentLocation.lat + " " + mCurrentLocation.lon);
     }
