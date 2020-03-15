@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.example.chooseyourmeal.data.MealListItem;
 import com.example.chooseyourmeal.data.MealRepository;
 import com.example.chooseyourmeal.data.Status;
+
 import java.util.List;
 
 public class MealListViewModel extends AndroidViewModel {
@@ -36,4 +37,13 @@ public class MealListViewModel extends AndroidViewModel {
     public LiveData<Status> getLoadingStatus() {
         return mLoadingStatus;
     }
+
+    public LiveData<List<MealListItem>> getFavMeal(){
+        return mRepository.getMeal();
+    }
+
+    public LiveData<MealListItem> getFaveMealByAddress(String address){
+        return mRepository.getFavByName(address);
+    }
+
 }

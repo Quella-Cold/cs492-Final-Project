@@ -68,7 +68,8 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.MealLi
         public void bind(MealListItem mealListItem) {
              mTextview.setText(mealListItem.mealName);
              mTextviewaddr.setText(mealListItem.address);
-             String iconURL="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&maxheight=600&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="+mealListItem.image;
+
+             String iconURL="https://maps.googleapis.com/maps/api/streetview?size=1280x720&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&location="+mealListItem.lat.toString()+","+mealListItem.lng.toString();
              Glide.with(mImageView.getContext()).load(iconURL).into(mImageView);
         }
 
