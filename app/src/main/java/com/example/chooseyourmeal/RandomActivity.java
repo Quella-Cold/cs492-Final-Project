@@ -15,26 +15,34 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 
 import com.bumptech.glide.Glide;
 import com.example.chooseyourmeal.data.LoadMealArgs;
 import com.example.chooseyourmeal.data.MealListItem;
 import com.example.chooseyourmeal.data.MealListItemsBundle;
+
 import com.example.chooseyourmeal.data.SaveMealDao;
+
 import com.example.chooseyourmeal.utils.BuildPlaceApiRequestUrl;
 import com.example.chooseyourmeal.utils.MapUtil;
 import com.example.chooseyourmeal.utils.NetworkUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+
 import com.example.chooseyourmeal.MealListViewModel;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomActivity extends AppCompatActivity {
+
     private MealListItem itema = new MealListItem();
+
     private LoadMealArgs mealArgs;
     private ImageView mImageView;
     private TextView mNameTV;
@@ -46,15 +54,19 @@ public class RandomActivity extends AppCompatActivity {
     private ProgressBar mLoadingIndicatorPB;
     private TextView mErrorMessageTV;
     private LinearLayout mll;
+
     private MealListViewModel mViewModel;
     private MealListItemsBundle.ResultList mResult;
     private SaveMealDao mealDao;
     private Boolean esxist;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.random_activity);
+
         esxist=false;
+
         mImageView = findViewById(R.id.iv_random);
         mNameTV = findViewById(R.id.tv_random_name);
         mOpenTV = findViewById(R.id.tv_random_hour);
@@ -66,6 +78,7 @@ public class RandomActivity extends AppCompatActivity {
         mErrorMessageTV = findViewById(R.id.tv_error_message);
         mll = findViewById(R.id.ly_random);
         mViewModel=new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MealListViewModel.class);
+
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("Information")) {
             mealArgs = (LoadMealArgs) intent.getSerializableExtra(
@@ -163,6 +176,7 @@ public class RandomActivity extends AppCompatActivity {
 
     private void addToFav(){
 
+
         itema.image = mResult.photos[0].photo_reference;
         itema.mealName = mResult.name;
         itema.rating = mResult.rating;
@@ -188,6 +202,7 @@ public class RandomActivity extends AppCompatActivity {
         }else{
             Log.d("Inserting=","Exsit");
         }
+
         //add item to database
     }
 }
