@@ -39,18 +39,30 @@ class LoadMealListTask extends AsyncTask<Void, Void, String> {
         ArrayList<MealListItem> MealItems = new ArrayList<MealListItem>() ;
         //Log.d("Onpot",s);
         if (s != null) {
+            Log.d("StrJsonis",s);
             Gson gson= new Gson();
             MealListItemsBundle res=gson.fromJson(s,MealListItemsBundle.class);
             Log.d("res=",res.results[0].formatted_address);
-            if(res!=null && res.results!=null){
+            if(res!=null && res.results!=null ){
+                Log.d("Status",res.status);
                 for(MealListItemsBundle.ResultList ritem : res.results){
                     MealListItem mealItem = new MealListItem();
                     mealItem.mealName=ritem.name;
-                    mealItem.image=ritem.photos[0].photo_reference;
+                    if(ritem.photos==null){
+                        mealItem.image="";
+                    }else {
+                        mealItem.image=ritem.photos[0].photo_reference;
+                    }
+
                     mealItem.lat=ritem.geometry.location.lat;
                     mealItem.lng=ritem.geometry.location.lng;
                     mealItem.address=ritem.formatted_address;
-                    mealItem.open = ritem.opening_hours.open_now;
+                    if(ritem.opening_hours==null || ritem.opening_hours.open_now==null){
+                       mealItem.open="Unknown";
+                    }else {
+                        mealItem.open = ritem.opening_hours.open_now;
+                    }
+
                     mealItem.rating = ritem.rating;
                     Log.d("meamItem",mealItem.address);
                     MealItems.add(mealItem);

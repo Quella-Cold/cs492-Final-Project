@@ -145,8 +145,10 @@ public class RandomActivity extends AppCompatActivity {
                 mNameTV.setText(resultList.name);
                 if(TextUtils.equals(resultList.opening_hours.open_now, "true")) {
                     mOpenTV.setText("Yes");
-                } else {
+                } else if(TextUtils.equals(resultList.opening_hours.open_now, "false")){
                     mOpenTV.setText("No");
+                }else{
+                    mOpenTV.setText("Unknown");
                 }
                 String rate = String.valueOf(resultList.rating);
                 mRatingTV.setText(rate);
