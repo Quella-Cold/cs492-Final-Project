@@ -19,5 +19,5 @@ public interface SaveMealDao {
     LiveData<List<MealListItem>> getAllItems();
 
     @Query("SELECT * FROM MealItems WHERE address=:address LIMIT 1")
-    LiveData<MealListItem> getLocationByName(String address);
+    LiveData<MealListItem> getMealByName(String address);
 }

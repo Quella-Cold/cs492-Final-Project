@@ -39,11 +39,17 @@ public class MealListViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<MealListItem>> getFavMeal(){
-        return mRepository.getMeal();
+        return mRepository.getAllFavMeals();
     }
 
-    public LiveData<MealListItem> getFaveMealByAddress(String address){
+    public LiveData<MealListItem> getFavMealByAddress(String address){
         return mRepository.getFavByName(address);
+    }
+
+
+
+    public void insertSavedMeal(MealListItem lc) {
+        mRepository.insertSavedMeal(lc);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.chooseyourmeal;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FavViewHolder> {
     }
     public void updateFavItems(List<MealListItem> MealListItems) {
         mMealListItem = MealListItems;
-        //this.UnitAbbr=UnitAbbr;
         notifyDataSetChanged();
     }
     public FavAdapter(OnFavClickListener ItemListener){
@@ -29,7 +29,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FavViewHolder> {
     }
     public FavViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView=inflater.inflate(R.layout.cardview_adapter, parent, false);
+        View itemView=inflater.inflate(R.layout.fav_adapter, parent, false);
         return new FavViewHolder(itemView);
     }
     @Override
@@ -48,17 +48,17 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FavViewHolder> {
     class FavViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTextview;
         private TextView mTextviewaddr;
-        private ImageView mImageView;
+
 
         public FavViewHolder(View itemView) {
             super(itemView);
-            mTextview=itemView.findViewById(R.id.cv_textview_name);
-            mTextviewaddr=itemView.findViewById(R.id.cv_textview_address);
-            mImageView=itemView.findViewById(R.id.cv_imageview);
+            mTextview=itemView.findViewById(R.id.fav_textview_name);
+            mTextviewaddr=itemView.findViewById(R.id.fav_textview_address);
             itemView.setOnClickListener(this);
         }
 
         public void bind(MealListItem mealListItem) {
+            Log.d("meal",mealListItem.mealName);
             mTextview.setText(mealListItem.mealName);
             mTextviewaddr.setText(mealListItem.address);
 

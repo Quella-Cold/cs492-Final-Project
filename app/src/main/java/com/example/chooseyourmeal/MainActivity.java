@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -17,7 +18,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import com.example.chooseyourmeal.MealListViewModel;
 import com.example.chooseyourmeal.data.CurrentLocation;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
     private CurrentLocation mLocation;
-
+    private MealListViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         mHomeFragment = new HomeFragment();
         mRandomFragment = new RandomFragment();
         mFavFragment = new FavFragment();
-
+        mViewModel=new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MealListViewModel.class);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 mHomeFragment).commit();
 
