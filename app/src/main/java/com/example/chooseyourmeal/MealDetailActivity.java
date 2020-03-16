@@ -92,7 +92,18 @@ public class MealDetailActivity extends AppCompatActivity {
                     "Information"
             );
         }
-
+        mViewModel.getFavMealByAddress(mResult.address).observe(this, new Observer<MealListItem>() {
+            @Override
+            public void onChanged(MealListItem item) {
+                if(item != null){
+                    esxist=true;
+                    Log.d("Inserting=","Already Exists");
+                }else{
+                    esxist=false;
+                    Log.d("Inserting=","Not Exists");
+                }
+            }
+        });
         mLoadingIndicatorPB.setVisibility(View.INVISIBLE);
         if (mResult != null){
             mll.setVisibility(View.VISIBLE);
@@ -129,18 +140,7 @@ public class MealDetailActivity extends AppCompatActivity {
     }
 
     public void Add(){
-        mViewModel.getFavMealByAddress(mResult.address).observe(this, new Observer<MealListItem>() {
-            @Override
-            public void onChanged(MealListItem item) {
-                if(item != null){
-                    esxist=true;
-                    Log.d("Inserting=","Already Exists");
-                }else{
-                    esxist=false;
-                    Log.d("Inserting=","Not Exists");
-                }
-            }
-        });
+
         if(!esxist){
             mViewModel.insertSavedMeal(mResult);
             Log.d("Inserting=",mResult.address);
