@@ -32,8 +32,8 @@ public class MealRepository implements LoadMealListTask.AsyncCallback {
 
         mLoadingStatus = new MutableLiveData<>();
         mLoadingStatus.setValue(Status.SUCCESS);
-       // AppDatabase db = AppDatabase.getDatabase(App);
-       // mDAO = db.saveWeatherDao();
+        AppDatabase db = AppDatabase.getDatabase(App);
+        mDao = db.saveMealDao();
     }
 
     /*
@@ -99,10 +99,29 @@ public class MealRepository implements LoadMealListTask.AsyncCallback {
     }
 
     public LiveData<List<MealListItem>> getAllFavMeals() {
+        Log.d(TAG, "GetAllLocation");
         return mDao.getAllItems();
     }
     public LiveData<MealListItem> getFavByName(String address){
-        return mDao.getLocationByName(address);
+        return mDao.getMealByName(address);
+    }
+
+    public void insertSavedMeal(MealListItem lc) {
+        new InsertAsyncTask(mDao).execute(lc);
+        Log.d(TAG, "Insert Meal");
+    }
+
+    private static class InsertAsyncTask extends AsyncTask<MealListItem, Void, Void> {
+        private SaveMealDao mAsyncTaskDAO;
+        InsertAsyncTask(SaveMealDao dao) {
+            mAsyncTaskDAO = dao;
+        }
+
+        @Override
+        protected Void doInBackground(MealListItem... mealItems) {
+            mAsyncTaskDAO.insert(mealItems[0]);
+            return null;
+        }
     }
 
 }

@@ -16,6 +16,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+
 import com.bumptech.glide.Glide;
 import com.example.chooseyourmeal.data.LoadMealArgs;
 import com.example.chooseyourmeal.data.MealListItem;
@@ -43,13 +47,15 @@ public class MealDetailActivity extends AppCompatActivity {
     private TextView mErrorMessageTV;
     private LinearLayout mll;
 
+    private Boolean esxist;
     private MealListItem mResult;
+    private MealListViewModel mViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.random_activity);
-
+        esxist=false;
         mImageView = findViewById(R.id.iv_random);
         mNameTV = findViewById(R.id.tv_random_name);
         mOpenTV = findViewById(R.id.tv_random_hour);
@@ -61,6 +67,7 @@ public class MealDetailActivity extends AppCompatActivity {
         mErrorMessageTV = findViewById(R.id.tv_error_message);
         mll = findViewById(R.id.ly_random);
 
+        mViewModel=new ViewModelProvider(this,new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MealListViewModel.class);
         mLoadingIndicatorPB.setVisibility(View.VISIBLE);
         mErrorMessageTV.setVisibility(View.INVISIBLE);
         mll.setVisibility(View.INVISIBLE);
@@ -75,6 +82,7 @@ public class MealDetailActivity extends AppCompatActivity {
         mFavBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Add();
             }
         });
 
@@ -119,4 +127,26 @@ public class MealDetailActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void Add(){
+        mViewModel.getFavMealByAddress(mResult.address).observe(this, new Observer<MealListItem>() {
+            @Override
+            public void onChanged(MealListItem item) {
+                if(item != null){
+                    esxist=true;
+                    Log.d("Inserting=","Already Exists");
+                }else{
+                    esxist=false;
+                    Log.d("Inserting=","Not Exists");
+                }
+            }
+        });
+        if(!esxist){
+            mViewModel.insertSavedMeal(mResult);
+            Log.d("Inserting=",mResult.address);
+        }else{
+            Log.d("Inserting=","Exsit");
+        }
+    }
+
 }
