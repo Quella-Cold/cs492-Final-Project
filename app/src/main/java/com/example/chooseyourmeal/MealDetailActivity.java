@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,12 +54,12 @@ public class MealDetailActivity extends AppCompatActivity {
     private Boolean esxist;
     private MealListItem mResult;
     private MealListViewModel mViewModel;
-
+    private Toast mToast;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.random_activity);
-        esxist=false;
+        esxist=true;
         mImageView = findViewById(R.id.iv_random);
         mNameTV = findViewById(R.id.tv_random_name);
         mOpenTV = findViewById(R.id.tv_random_hour);
@@ -111,6 +112,18 @@ public class MealDetailActivity extends AppCompatActivity {
             String rate = String.valueOf(mResult.rating);
             mRatingTV.setText(rate);
             mAddressTV.setText(mResult.address);
+            mViewModel.getFavMealByAddress(mResult.address).observe(this, new Observer<MealListItem>() {
+                @Override
+                public void onChanged(MealListItem item) {
+                    if(item != null){
+                        esxist=true;
+                        Log.d("Inserting=","Already Exists");
+                    }else{
+                        esxist=false;
+                        Log.d("Inserting=","Not Exists");
+                    }
+                }
+            });
             String url=
                     "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="
                             + mResult.image;
@@ -135,22 +148,15 @@ public class MealDetailActivity extends AppCompatActivity {
     }
 
     public void Add(){
-        mViewModel.getFavMealByAddress(mResult.address).observe(this, new Observer<MealListItem>() {
-            @Override
-            public void onChanged(MealListItem item) {
-                if(item != null){
-                    esxist=true;
-                    Log.d("Inserting=","Already Exists");
-                }else{
-                    esxist=false;
-                    Log.d("Inserting=","Not Exists");
-                }
-            }
-        });
+
         if(!esxist){
             mViewModel.insertSavedMeal(mResult);
+            mToast = Toast.makeText(this, "Add Favorite Success", Toast.LENGTH_LONG);
+            mToast.show();
             Log.d("Inserting=",mResult.address);
         }else{
+            mToast = Toast.makeText(this, "Already Exist", Toast.LENGTH_LONG);
+            mToast.show();
             Log.d("Inserting=","Exsit");
         }
     }

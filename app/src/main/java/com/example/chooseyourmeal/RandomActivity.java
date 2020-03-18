@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +55,7 @@ public class RandomActivity extends AppCompatActivity {
     private ProgressBar mLoadingIndicatorPB;
     private TextView mErrorMessageTV;
     private LinearLayout mll;
-
+    private Toast mToast;
     private MealListViewModel mViewModel;
     private MealListItemsBundle.ResultList mResult;
     private SaveMealDao mealDao;
@@ -65,7 +66,7 @@ public class RandomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.random_activity);
 
-        esxist=false;
+        esxist=true;
 
         mImageView = findViewById(R.id.iv_random);
         mNameTV = findViewById(R.id.tv_random_name);
@@ -153,17 +154,32 @@ public class RandomActivity extends AppCompatActivity {
                 String rate = String.valueOf(resultList.rating);
                 mRatingTV.setText(rate);
                 mAddressTV.setText(resultList.formatted_address);
+
                 String url=
                         "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyDRHaMoINsFBv0CZWBbdrdGvFhdRKWRg4E&photoreference="
                                 + resultList.photos[0].photo_reference;
                 Glide.with(mImageView.getContext()).load(url).into(mImageView);
+                CheckExist();
             }
             else {
                 mErrorMessageTV.setVisibility(View.VISIBLE);
             }
         }
     }
-
+    private void CheckExist(){
+        mViewModel.getFavMealByAddress(mResult.formatted_address).observe(this, new Observer<MealListItem>() {
+            @Override
+            public void onChanged(MealListItem item) {
+                if(item != null){
+                    esxist=true;
+                    Log.d("Inserting=","Already Exists");
+                }else{
+                    esxist=false;
+                    Log.d("Inserting=","Not Exists");
+                }
+            }
+        });
+    }
     private void viewLocationOnMap(){
         String Location = mResult.formatted_address;
         if(!TextUtils.isEmpty(Location)){
@@ -186,22 +202,15 @@ public class RandomActivity extends AppCompatActivity {
         itema.open = mResult.opening_hours.open_now;
         itema.lat = mResult.geometry.location.lat;
         itema.lng = mResult.geometry.location.lng;
-        mViewModel.getFavMealByAddress(itema.address).observe(this, new Observer<MealListItem>() {
-            @Override
-            public void onChanged(MealListItem item) {
-                if(item != null){
-                    esxist=true;
-                    Log.d("Inserting=","Already Exists");
-                }else{
-                    esxist=false;
-                    Log.d("Inserting=","Not Exists");
-                }
-           }
-        });
+
         if(!esxist){
             mViewModel.insertSavedMeal(itema);
+            mToast = Toast.makeText(this, "Add Favorite Success", Toast.LENGTH_LONG);
+            mToast.show();
             Log.d("Inserting=",itema.address);
         }else{
+            mToast = Toast.makeText(this, "Already Exist~", Toast.LENGTH_LONG);
+            mToast.show();
             Log.d("Inserting=","Exsit");
         }
 
