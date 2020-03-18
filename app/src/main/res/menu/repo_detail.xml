@@ -6,12 +6,6 @@
         android:icon="@drawable/ic_action_name"
         android:title="Share"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_view_repo"
-        android:title="View repo on GitHub"
-        app:showAsAction="never"/>
-
-
+    
 
 </menu>
